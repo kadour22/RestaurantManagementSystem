@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'Restaurant',
     'Table',
     'Category',
+    'MenuItem',
     'rest_framework'
 ]
 
