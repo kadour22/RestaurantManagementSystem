@@ -5,7 +5,6 @@ from django.db import transaction
 from .models import Table
 from .serializers import table_serializer
 
-
 class table_services(APIView) :
 
     def get(self, request) :
