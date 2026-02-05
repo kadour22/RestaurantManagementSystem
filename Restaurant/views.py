@@ -4,7 +4,7 @@ from .serializers import restaurant_serializer
 from .models import Restaurant
 
 class restaurant_viewset(ModelViewSet) :
-    queryset = Restaurant.objects.all()
+    queryset = Restaurant.objects.prefetch_related('table').all()
     serializer_class = restaurant_serializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ["name","adresse"]
