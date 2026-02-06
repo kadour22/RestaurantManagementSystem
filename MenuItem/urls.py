@@ -3,6 +3,6 @@ from .views import MenuItemViewSet
 
 router = DefaultRouter()
 
-router.register('menu/', MenuItemViewSet)
+router.register('menu', MenuItemViewSet)
 
 urlpatterns = router.urls

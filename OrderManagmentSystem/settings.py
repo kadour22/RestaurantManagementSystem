@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'Table',
     'Category',
     'MenuItem',
+    'Order',
     'rest_framework'
 ]
 
