@@ -16,7 +16,7 @@ class Order(models.Model) :
         return self.status
 
 class OrderItem(models.Model) :
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order")
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE, related_name="order")
     quantity  = models.PositiveIntegerField()
 

@@ -4,7 +4,7 @@ from .models import Order, OrderItem
 
 class OrderItemListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderItem
+        model = Order
         fields = "__all__"
 
 

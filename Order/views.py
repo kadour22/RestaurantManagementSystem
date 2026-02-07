@@ -10,7 +10,7 @@ from .models import *
 class order_service(APIView) :
 
     def get(self, request) :
-        orders = Order.objects.select_related("table").all()
+        orders = Order.objects.all()
         serializer = OrderItemListSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

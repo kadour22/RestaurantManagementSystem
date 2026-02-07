@@ -10,6 +10,7 @@ urlpatterns = [
     path('Table/', include('Table.urls')),
     path('Category/', include('Category.urls')),
     path('MenuItem/', include('MenuItem.urls')),
+    path('Order/', include('Order.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
