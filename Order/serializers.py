@@ -19,7 +19,7 @@ class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
 
     class Meta:
-        model = Order,
+        model = Order
         fields = ['table', 'status', 'total_price', 'items']
 
     def create(self, validated_data):
