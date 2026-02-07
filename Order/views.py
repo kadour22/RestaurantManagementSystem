@@ -15,7 +15,7 @@ class order_service(APIView) :
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request) :
-        serializer = order_service(data=request.data)
+        serializer = OrderSerializer(data=request.data)
         if serializer.is_valid() :
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
