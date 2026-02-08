@@ -5,6 +5,6 @@ from .serializers import MenuItemSerializer
 from .models import MenuItem
 
 class MenuItemViewSet(ModelViewSet) :
-    permission_classes = [IsAdminUser]
+    
     queryset = MenuItem.objects.select_related('category').all()
     serializer_class = MenuItemSerializer
