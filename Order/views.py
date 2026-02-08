@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from django.db import transaction
-
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from .serializers import *
 from .models import *
 from .utils.calculate_total_price import calculate_total_price
@@ -21,6 +22,18 @@ class order_service(APIView) :
         if serializer.is_valid() :
             order = serializer.save()
             calculate_total_price(order=order)
+            table_id = order.table.id
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                "orders",
+                {
+                    "type":"create_order",
+                    "table":order.table.id,
+                    "status":order.status,
+                    "total_price":order.total_price,
+                    "created_at":order.created_at
+                }
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
