@@ -30,7 +30,7 @@ class order_service(APIView) :
                     "type":"create_order",
                     "table":order.table.id,
                     "status":order.status,
-                    "total_price":order.total_price,
+                    "total_price":str(order.total_price),
                     "created_at":order.created_at
                 }
             )
