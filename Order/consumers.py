@@ -11,7 +11,7 @@ class ordering_consumer(AsyncWebsocketConsumer) :
         print("connected")
 
     async def disconnect(self, code):
-        await self.channel_layer.group_discard(self.group_name,self.channel_layer)
+        await self.channel_layer.group_discard(self.group_name,self.channel_name)
         print("disconnected..")
     
     async def create_order(self,event) :
