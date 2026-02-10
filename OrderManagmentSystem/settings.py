@@ -11,11 +11,44 @@ else:
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-p8m2s60nu@oo@=w^e!4b7h2s(9uypm!f((fcul-27^!dro5zk1'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = []
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER",'postgres'),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT", "5432"),
+        "CONN_MAX_AGE": 60, 
+    }
+}
+
+CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS")
+ROOT_URLCONF = os.getenv("ROOT_URLCONF")
+
+ASGI_APPLICATION = 'OrderManagmentSystem.asgi.application'
+STATIC_URL = os.getenv("STATIC_URL")
+MEDIA_URL = os.getenv("MEDIA_URL")
+MEDIA_ROOT = os.path.join(BASE_DIR, os.getenv("MEDIA_ROOT"))
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
 
 INSTALLED_APPS = [
     'daphne',
@@ -45,8 +78,6 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
 ]
-CORS_ALLOW_ALL_ORIGINS = True
-ROOT_URLCONF = 'OrderManagmentSystem.urls'
 
 TEMPLATES = [
     {
@@ -63,27 +94,6 @@ TEMPLATES = [
         },
     },
 ]
-
-ASGI_APPLICATION = 'OrderManagmentSystem.asgi.application'
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-        },
-    },
-}
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER",'postgres'),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT", "5432"),
-        "CONN_MAX_AGE": 60,  # important for prod
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -104,9 +114,3 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
-STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
