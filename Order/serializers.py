@@ -18,7 +18,6 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ['menu_item', 'quantity']
 
-
 class OrderSerializer(serializers.ModelSerializer):
     
     items = OrderItemSerializer(many=True)

@@ -20,7 +20,7 @@ class ordering_consumer(AsyncWebsocketConsumer) :
                 "type":"create_order",
                 "table":event["table"],
                 "status":event["status"],
-                "total_price":str(event["total_price"]),
+                "total_price":event["total_price"],
                 "created_at":event["created_at"]
             })
         )
