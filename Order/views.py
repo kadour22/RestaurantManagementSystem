@@ -18,24 +18,8 @@ class order_service(APIView) :
 
     def post(self, request) :
         serializer = OrderSerializer(data=request.data)
-        
         if serializer.is_valid() :
-    
             order = serializer.save()
             calculate_total_price(order=order)
-            table_id = order.table.id
-            channel_layer = get_channel_layer()
-    
-            async_to_sync(channel_layer.group_send)(
-                "orders",
-                {
-                    "type":"create_order",
-                    "table":order.table.id,
-                    "status":order.status,
-                    "total_price":str(order.total_price),
-                    "created_at":order.created_at
-                }
-            )
-    
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
