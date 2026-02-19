@@ -38,7 +38,7 @@ DATABASES = {
     }
 }
 
-CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS")
+CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = os.getenv("ROOT_URLCONF")
 
 ASGI_APPLICATION = 'OrderManagmentSystem.asgi.application'
