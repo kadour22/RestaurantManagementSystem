@@ -6,5 +6,7 @@ from .models import MenuItem
 
 class MenuItemViewSet(ModelViewSet) :
     
-    queryset = MenuItem.objects.select_related('category').all()
+    queryset = MenuItem.objects.select_related(
+        'category','order'
+        ).all()
     serializer_class = MenuItemSerializer
