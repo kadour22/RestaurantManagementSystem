@@ -11,3 +11,5 @@ class restaurant_viewset(APIView) :
     def list(self, request) :
         return self.restaurant_service.get_all_restaurant()
     
+    def retrieve(self, request, id) :
+        return self.restaurant_service.get_restaurant_by_id(id)
