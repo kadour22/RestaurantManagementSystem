@@ -1,10 +1,13 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 from rest_framework.filters import SearchFilter, OrderingFilter
-from .serializers import restaurant_serializer
-from .models import Restaurant
+from .services import restaurant_service
 
-class restaurant_viewset(ModelViewSet) :
-    queryset = Restaurant.objects.prefetch_related('table').all()
-    serializer_class = restaurant_serializer
-    filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ["name","adresse"]
+class restaurant_viewset(APIView) :
+
+    def __init__(self, *args, **kwargs) :
+        super().__init__(*args, **kwargs)
+        self.restaurant_service = restaurant_service()
+    
+    def list(self, request) :
+        return self.restaurant_service.get_all_restaurant()
+    
